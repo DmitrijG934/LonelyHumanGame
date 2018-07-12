@@ -1,13 +1,22 @@
 package com.dmitrijg.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
+import handlers.Hud;
 
 public class PlayScreen implements Screen {
 
@@ -17,11 +26,55 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport gameport;
 
+    // load tiled map
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
+    private TmxMapLoader mapLoader;
+
+    // load box2d vars
+    private World world;
+    private Box2DDebugRenderer b2dr;
+
+    // Hud
+    private Hud hudCam;
 
     public PlayScreen(LonelyHuman lonelyHuman) {
         this.game = lonelyHuman;
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(LonelyHuman.V_WIDTH, LonelyHuman.V_HEIGHT, gamecam);
+
+        // set tiled map
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load("level2.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+
+        // Hud cam
+        hudCam = new Hud(game.batch);
+
+        // make box2d world
+        world = new World(new Vector2(0,0), true);
+        b2dr = new Box2DDebugRenderer();
+
+        // BodyDef
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        for (MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+
+            fdef.shape = shape;
+            body.createFixture(fdef);
+
+        }
 
         gamecam.position.set(new Vector2(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2), 0);
 
@@ -32,10 +85,38 @@ public class PlayScreen implements Screen {
 
     }
 
+    public void update(float delta) {
+        handleInput();
+        gamecam.update();
+        tiledMapRenderer.setView(gamecam);
+    }
+
+    private void handleInput() {
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            gamecam.position.y += 100 * Gdx.graphics.getDeltaTime();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            gamecam.position.y -= 100 * Gdx.graphics.getDeltaTime();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            gamecam.position.x -= 100 * Gdx.graphics.getDeltaTime();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            gamecam.position.x += 100 * Gdx.graphics.getDeltaTime();
+        }
+    }
+
     @Override
     public void render(float delta) {
+        update(delta);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        tiledMapRenderer.render();
+        b2dr.render(world, gamecam.combined);
+
+        /*game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
+        hudCam.stage.draw();*/
 
     }
 

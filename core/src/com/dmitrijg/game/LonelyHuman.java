@@ -7,8 +7,8 @@ import com.dmitrijg.game.screens.PlayScreen;
 public class LonelyHuman extends Game {
 	public SpriteBatch batch;
 
-	public static final int V_WIDTH = 600;
-	public static final int V_HEIGHT = 340;
+	public static final int V_WIDTH = 480;
+	public static final int V_HEIGHT = 208;
 	
 	@Override
 	public void create () {

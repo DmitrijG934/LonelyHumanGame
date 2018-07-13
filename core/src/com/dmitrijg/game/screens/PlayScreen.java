@@ -16,7 +16,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
+import com.dmitrijg.game.sprites.Player;
 import handlers.Hud;
+import static com.dmitrijg.game.LonelyHuman.PPM;
 
 public class PlayScreen implements Screen {
 
@@ -38,15 +40,18 @@ public class PlayScreen implements Screen {
     // Hud
     private Hud hudCam;
 
+    // Create player
+    private Player player;
+
     public PlayScreen(LonelyHuman lonelyHuman) {
         this.game = lonelyHuman;
         gamecam = new OrthographicCamera();
-        gameport = new FitViewport(LonelyHuman.V_WIDTH, LonelyHuman.V_HEIGHT, gamecam);
+        gameport = new FitViewport(LonelyHuman.V_WIDTH / PPM, LonelyHuman.V_HEIGHT / PPM, gamecam);
 
         // set tiled map
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level2.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
 
         // Hud cam
         hudCam = new Hud(game.batch);
@@ -65,16 +70,19 @@ public class PlayScreen implements Screen {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PPM, (rect.getY() + rect.getHeight() / 2) / PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            shape.setAsBox((rect.getWidth() / 2) / PPM, (rect.getHeight() / 2) / PPM);
 
             fdef.shape = shape;
             body.createFixture(fdef);
 
         }
+
+        // player
+        player = new Player(world);
 
         gamecam.position.set(new Vector2(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2), 0);
 
@@ -87,23 +95,18 @@ public class PlayScreen implements Screen {
 
     public void update(float delta) {
         handleInput();
+        player.handleInput();
         gamecam.update();
+
+        gamecam.position.x = player.body.getPosition().x;
+        gamecam.position.y = player.body.getPosition().y;
+        world.step(1f/60f, 6, 2);
+
         tiledMapRenderer.setView(gamecam);
     }
 
     private void handleInput() {
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            gamecam.position.y += 100 * Gdx.graphics.getDeltaTime();
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            gamecam.position.y -= 100 * Gdx.graphics.getDeltaTime();
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            gamecam.position.x -= 100 * Gdx.graphics.getDeltaTime();
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            gamecam.position.x += 100 * Gdx.graphics.getDeltaTime();
-        }
+
     }
 
     @Override
@@ -115,8 +118,9 @@ public class PlayScreen implements Screen {
         tiledMapRenderer.render();
         b2dr.render(world, gamecam.combined);
 
-        /*game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
-        hudCam.stage.draw();*/
+        game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
+        hudCam.stage.draw();
+
 
     }
 

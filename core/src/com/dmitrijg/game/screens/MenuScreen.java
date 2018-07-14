@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
 
+import java.util.ArrayList;
+
 public class MenuScreen implements Screen {
 
     private Label.LabelStyle activeStyle;
@@ -37,6 +39,7 @@ public class MenuScreen implements Screen {
     private TmxMapLoader mapLoader;
 
     private OrthographicCamera menuCam;
+
 
     private LonelyHuman game;
 
@@ -99,7 +102,6 @@ public class MenuScreen implements Screen {
         int mapPixelWidth = mapWidth * tilePixelWidth;
         mapPixelHeight = mapHeight * tilePixelHeight;
 
-
     }
 
     @Override
@@ -109,8 +111,14 @@ public class MenuScreen implements Screen {
 
     public void update(float delta) {
         handleInput();
-        menuCam.position.y += 50 * delta;
-        if(menuCam.position.y == mapPixelHeight) System.out.println(true);
+        if(menuCam.position.y > (mapPixelHeight - menuCam.viewportHeight / 2)) {
+            System.out.println(true);
+            menuCam.position.y = mapPixelHeight / 2;
+        } else {
+            menuCam.position.y += 50 * delta;
+        }
+        menuCam.update();
+
     }
 
     public void handleInput() {

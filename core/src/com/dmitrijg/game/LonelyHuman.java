@@ -2,6 +2,7 @@ package com.dmitrijg.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dmitrijg.game.screens.MenuScreen;
 import com.dmitrijg.game.screens.PlayScreen;
 
 public class LonelyHuman extends Game {
@@ -14,7 +15,7 @@ public class LonelyHuman extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+		setScreen(new MenuScreen(this));
 	}
 
 	public void render() {

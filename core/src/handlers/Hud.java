@@ -9,11 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
 
-public class Hud {
+public class Hud implements Disposable {
     private Viewport viewport;
     public Stage stage;
 
@@ -38,4 +39,14 @@ public class Hud {
         stage.addActor(table);
 
     }
+
+    public void update() {
+        fpsManager.setText(String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()));
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+
 }

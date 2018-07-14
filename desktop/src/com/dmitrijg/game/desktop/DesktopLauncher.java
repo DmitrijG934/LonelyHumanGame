@@ -12,5 +12,7 @@ public class DesktopLauncher {
 		new LwjglApplication(new LonelyHuman(), config);
 		config.addIcon("icon.png", Files.FileType.Local);
 		config.title = "Lonely Man";
+		config.width = 800;
+		config.height = 600;
 	}
 }

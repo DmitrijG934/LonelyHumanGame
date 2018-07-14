@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -35,6 +36,12 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    // map properties
+    private int mapWidth;
+    private int mapHeight;
+    private int tilePixelWidth;
+    private int tilePixelHeight;
+
     // Hud
     private Hud hudCam;
 
@@ -60,6 +67,12 @@ public class PlayScreen implements Screen {
 
         new Box2DCreator(world, map);
 
+        MapProperties prop = map.getProperties();
+        mapWidth = prop.get("width", Integer.class);
+        mapHeight = prop.get("height", Integer.class);
+        tilePixelWidth = prop.get("tilewidth", Integer.class);
+        tilePixelHeight = prop.get("tileheight", Integer.class);
+
         // player
         player = new Player(world);
 
@@ -84,10 +97,17 @@ public class PlayScreen implements Screen {
         //gamecam.position.y = player.body.getPosition().y;
         if(player.body.getPosition().x > gameport.getWorldWidth() / 2) {
             gamecam.position.x = player.body.getPosition().x;
+            if(gamecam.position.x > 7.8f) {
+                gamecam.position.x = 7.8f;
+            }
         }
         if(player.body.getPosition().y > gameport.getWorldHeight() / 2) {
             gamecam.position.y = player.body.getPosition().y;
+            if(gamecam.position.y > 9.0f) {
+                gamecam.position.y = 9.0f;
+            }
         }
+
         world.step(1f/60f, 6, 2);
 
         tiledMapRenderer.setView(gamecam);

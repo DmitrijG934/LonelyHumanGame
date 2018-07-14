@@ -80,8 +80,14 @@ public class PlayScreen implements Screen {
         player.handleInput();
         gamecam.update();
 
-        gamecam.position.x = player.body.getPosition().x;
-        gamecam.position.y = player.body.getPosition().y;
+        //gamecam.position.x = player.body.getPosition().x;
+        //gamecam.position.y = player.body.getPosition().y;
+        if(player.body.getPosition().x > gameport.getWorldWidth() / 2) {
+            gamecam.position.x = player.body.getPosition().x;
+        }
+        if(player.body.getPosition().y > gameport.getWorldHeight() / 2) {
+            gamecam.position.y = player.body.getPosition().y;
+        }
         world.step(1f/60f, 6, 2);
 
         tiledMapRenderer.setView(gamecam);

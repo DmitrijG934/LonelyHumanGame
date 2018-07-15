@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,7 +17,6 @@ import com.dmitrijg.game.sprites.Player;
 import com.dmitrijg.game.tools.Box2DCreator;
 import handlers.Hud;
 import static com.dmitrijg.game.LonelyHuman.PPM;
-
 public class PlayScreen implements Screen {
 
     private LonelyHuman game;
@@ -36,17 +34,12 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    // map properties
-    private int mapWidth;
-    private int mapHeight;
-    private int tilePixelWidth;
-    private int tilePixelHeight;
-
     // Hud
     private Hud hudCam;
 
     // Create player
     private Player player;
+
 
     public PlayScreen(LonelyHuman lonelyHuman) {
         this.game = lonelyHuman;
@@ -58,6 +51,8 @@ public class PlayScreen implements Screen {
         map = mapLoader.load("level2.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
 
+
+
         // Hud cam
         hudCam = new Hud(game.batch);
 
@@ -66,12 +61,6 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         new Box2DCreator(world, map);
-
-        MapProperties prop = map.getProperties();
-        mapWidth = prop.get("width", Integer.class);
-        mapHeight = prop.get("height", Integer.class);
-        tilePixelWidth = prop.get("tilewidth", Integer.class);
-        tilePixelHeight = prop.get("tileheight", Integer.class);
 
         // player
         player = new Player(world);
@@ -86,36 +75,38 @@ public class PlayScreen implements Screen {
     }
 
     public void update(float delta) {
+        // update input
         handleInput();
 
+        // update hud cam
         hudCam.update();
 
+        // update player input
         player.handleInput();
         gamecam.update();
 
-        //gamecam.position.x = player.body.getPosition().x;
-        //gamecam.position.y = player.body.getPosition().y;
+        // define player borders
         if(player.body.getPosition().x > gameport.getWorldWidth() / 2) {
-            gamecam.position.x = player.body.getPosition().x;
-            if(gamecam.position.x > 7.8f) {
+
+            // fix bug with black lines between tiles
+            gamecam.position.x =  (float) Math.round(player.body.getPosition().x * 100f) / 100f;
+            if(gamecam.position.x > 7.8f)
                 gamecam.position.x = 7.8f;
-            }
         }
         if(player.body.getPosition().y > gameport.getWorldHeight() / 2) {
             gamecam.position.y = player.body.getPosition().y;
-            if(gamecam.position.y > 9.0f) {
-                gamecam.position.y = 9.0f;
-            }
+            if(gamecam.position.y > 9.2f) gamecam.position.y = 9.2f;
         }
 
         world.step(1f/60f, 6, 2);
-
+        // set view to gamecam (tiled map)
         tiledMapRenderer.setView(gamecam);
     }
 
     private void handleInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
             game.dispose();
+            // set main menu screen
             game.setScreen(new MenuScreen(game));
         }
     }
@@ -126,7 +117,9 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // render map
         tiledMapRenderer.render();
+        // render box2d world
         b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
@@ -157,7 +150,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        System.out.println("PlayState dispose");
         map.dispose();
         tiledMapRenderer.dispose();
         b2dr.dispose();

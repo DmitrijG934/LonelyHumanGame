@@ -31,9 +31,6 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private TmxMapLoader mapLoader;
 
-    // create tiled texture atlas pack file
-    private TextureAtlas atlas;
-
     // load box2d vars
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -47,8 +44,6 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(LonelyHuman lonelyHuman) {
         this.game = lonelyHuman;
-
-        atlas = new TextureAtlas("characters.pack");
 
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(LonelyHuman.V_WIDTH / PPM, LonelyHuman.V_HEIGHT / PPM, gamecam);
@@ -141,11 +136,7 @@ public class PlayScreen implements Screen {
 
 
     }
-
-    public TextureAtlas getAtlas() {
-        return atlas;
-    }
-
+    
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);

@@ -133,6 +133,8 @@ public class Player extends Sprite {
             updateAnimation(3);
         }
 
+
+
         System.out.println(isGo);
 
         body.setLinearVelocity(velX, velY);

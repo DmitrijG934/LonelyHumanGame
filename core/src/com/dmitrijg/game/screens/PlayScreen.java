@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -30,6 +31,9 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private TmxMapLoader mapLoader;
 
+    // create tiled texture atlas pack file
+    private TextureAtlas atlas;
+
     // load box2d vars
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -43,6 +47,9 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(LonelyHuman lonelyHuman) {
         this.game = lonelyHuman;
+
+        atlas = new TextureAtlas("characters.pack");
+
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(LonelyHuman.V_WIDTH / PPM, LonelyHuman.V_HEIGHT / PPM, gamecam);
 
@@ -50,7 +57,6 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level2.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
-
 
 
         // Hud cam
@@ -82,7 +88,7 @@ public class PlayScreen implements Screen {
         hudCam.update();
 
         // update player input
-        player.handleInput();
+        player.handleInput(delta);
         gamecam.update();
 
         // define player borders
@@ -90,6 +96,7 @@ public class PlayScreen implements Screen {
 
             // fix bug with black lines between tiles
             gamecam.position.x =  (float) Math.round(player.body.getPosition().x * 100f) / 100f;
+            //gamecam.position.x = player.body.getPosition().x;
             if(gamecam.position.x > 7.8f)
                 gamecam.position.x = 7.8f;
         }
@@ -122,10 +129,21 @@ public class PlayScreen implements Screen {
         // render box2d world
         b2dr.render(world, gamecam.combined);
 
+        game.batch.setProjectionMatrix(gamecam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
+
+        player.update(delta);
+
         game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
         hudCam.stage.draw();
 
 
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
     }
 
     @Override

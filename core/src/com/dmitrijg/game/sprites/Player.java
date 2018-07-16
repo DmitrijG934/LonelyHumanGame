@@ -32,6 +32,12 @@ public class Player extends Sprite {
     public TextureRegion currentState;
 
     private boolean isGo = false;
+    private boolean goUp = false;
+    private boolean goDown = false;
+    private boolean goLeft = false;
+    private boolean goRight = false;
+
+    private String lastMove = "standing";
 
     private Animation animation;
 
@@ -49,13 +55,17 @@ public class Player extends Sprite {
         left = new TextureRegion[2];
         right = new TextureRegion[2];
 
-        standing = new TextureRegion[1];
+        standing = new TextureRegion[4];
 
-        TextureRegion[][] animationMovements = TextureRegion.split(new Texture("sprites/player-sprite.png"),
+        TextureRegion[][] animationMovements = TextureRegion.split(new Texture("sprites/sprite.png"),
                 PIXEL_WIDTH, PIXEL_HEIGHT);
 
         setBounds(0, 0, PIXEL_WIDTH / PPM, PIXEL_HEIGHT / PPM);
+
         standing[0] = animationMovements[2][1];
+        standing[1] = animationMovements[0][0];
+        standing[2] = animationMovements[4][0];
+        standing[3] = animationMovements[5][1];
         // previous state
         setRegion(standing[0]);
 
@@ -77,12 +87,15 @@ public class Player extends Sprite {
         movements[1] = down;
         movements[2] = left;
         movements[3] = right;
-        movements[4] = standing;
 
     }
 
-    public void updateAnimation(int index) {
+    private void updateAnimation(int index) {
         animation = new Animation(0.1f, movements[index]);
+    }
+
+    private void updateAnimation(TextureRegion region) {
+        animation = new Animation(0.1f, region);
     }
 
     // put sprite in box2d
@@ -112,30 +125,40 @@ public class Player extends Sprite {
 
     public void handleInput(float delta) {
         float velX = 0, velY = 0;
-        if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             velY = 1.0f;
             isGo = true;
+            goUp = true;
+            lastMove = "up";
             updateAnimation(0);
-        }
-        else if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             velX = -1.0f;
             isGo = true;
+            goLeft = true;
+            lastMove = "left";
             updateAnimation(2);
-        }
-        else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             velY = -1.0f;
             isGo = true;
+            goDown = true;
+            lastMove = "down";
             updateAnimation(1);
-        }
-        else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             velX = 1.0f;
             isGo = true;
+            goRight = true;
+            lastMove = "right";
             updateAnimation(3);
+        } else {
+            isGo = false;
+            if(lastMove.equals("right")) updateAnimation(standing[0]);
+            if(lastMove.equals("down")) updateAnimation(standing[1]);
+
+            if(lastMove.equals("up")) updateAnimation(standing[3]);
+
+            if(lastMove.equals("left")) updateAnimation(standing[2]);
         }
 
-
-
-        System.out.println(isGo);
 
         body.setLinearVelocity(velX, velY);
 

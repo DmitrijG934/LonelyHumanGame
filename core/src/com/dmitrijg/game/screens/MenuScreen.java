@@ -97,12 +97,9 @@ public class MenuScreen implements Screen {
 
         MapProperties prop = map.getProperties();
 
-        int mapWidth = prop.get("width", Integer.class);
         int mapHeight = prop.get("height", Integer.class);
-        int tilePixelWidth = prop.get("tilewidth", Integer.class);
         int tilePixelHeight = prop.get("tileheight", Integer.class);
 
-        int mapPixelWidth = mapWidth * tilePixelWidth;
         mapPixelHeight = mapHeight * tilePixelHeight;
 
     }
@@ -183,9 +180,10 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        System.out.println("MenuState dispose");
         stage.dispose();
         map.dispose();
         mapRenderer.dispose();
+        stage.dispose();
+        camStage.dispose();
     }
 }

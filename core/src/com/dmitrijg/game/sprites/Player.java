@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.dmitrijg.game.screens.PlayScreen;
@@ -16,6 +20,8 @@ import static com.dmitrijg.game.LonelyHuman.PPM;
 public class Player extends Sprite {
     private World world;
     public Body body;
+
+    private TiledMap map;
 
     private static final int PIXEL_WIDTH = 16;
     private static final int PIXEL_HEIGHT = 32;
@@ -45,6 +51,7 @@ public class Player extends Sprite {
 
     public Player(World world) {
         this.world = world;
+        map = new PlayScreen().getMap();
         definePlayer();
 
         movements = new TextureRegion[5][2];
@@ -88,6 +95,7 @@ public class Player extends Sprite {
         movements[2] = left;
         movements[3] = right;
 
+
     }
 
     private void updateAnimation(int index) {
@@ -114,12 +122,20 @@ public class Player extends Sprite {
         PolygonShape ph = new PolygonShape();
         ph.setAsBox(5 / PPM, 5 / PPM);
 
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(32 / PPM,32 / PPM);
-        body = world.createBody(bdef);
+        for (MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-        fdef.shape = ph;
-        body.createFixture(fdef);
+            bdef.type = BodyDef.BodyType.DynamicBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / PPM, (rect.getY() + rect.getHeight() / 2) / PPM);
+
+            body = world.createBody(bdef);
+
+            ph.setAsBox((rect.getWidth() / 2) / PPM, (rect.getHeight() / 2) / PPM);
+
+            fdef.shape = ph;
+            body.createFixture(fdef);
+
+        }
 
     }
 
@@ -158,9 +174,11 @@ public class Player extends Sprite {
 
             if(lastMove.equals("left")) updateAnimation(standing[2]);
         }
-
-
         body.setLinearVelocity(velX, velY);
 
+    }
+
+    public void dispose() {
+        map.dispose();
     }
 }

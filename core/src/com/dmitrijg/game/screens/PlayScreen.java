@@ -6,7 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +20,7 @@ import com.dmitrijg.game.sprites.Player;
 import com.dmitrijg.game.tools.Box2DCreator;
 import handlers.Hud;
 import static com.dmitrijg.game.LonelyHuman.PPM;
+
 public class PlayScreen implements Screen {
 
     private LonelyHuman game;
@@ -26,10 +29,15 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport gameport;
 
+    public TiledMap getMap() {
+        return map;
+    }
+
     // load tiled map
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer tiledMapRenderer;
-    private TmxMapLoader mapLoader;
+    private static TiledMap map;
+    private static OrthogonalTiledMapRenderer tiledMapRenderer;
+    private static TmxMapLoader mapLoader;
+
 
     // load box2d vars
     private World world;
@@ -41,18 +49,21 @@ public class PlayScreen implements Screen {
     // Create player
     private Player player;
 
+    static {
+        // set tiled map
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load("level.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
+
+
+    }
+
 
     public PlayScreen(LonelyHuman lonelyHuman) {
         this.game = lonelyHuman;
 
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(LonelyHuman.V_WIDTH / PPM, LonelyHuman.V_HEIGHT / PPM, gamecam);
-
-        // set tiled map
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load("level2.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
-
 
         // Hud cam
         hudCam = new Hud(game.batch, game);
@@ -68,6 +79,9 @@ public class PlayScreen implements Screen {
 
         gamecam.position.set(new Vector2(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2), 0);
 
+    }
+
+    public PlayScreen() {
     }
 
     @Override
@@ -108,6 +122,7 @@ public class PlayScreen implements Screen {
     private void handleInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
             game.dispose();
+            player.dispose();
             // set main menu screen
             game.setScreen(new MenuScreen(game));
         }
@@ -116,20 +131,25 @@ public class PlayScreen implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
+        player.update(delta);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // render map
         tiledMapRenderer.render();
-        // render box2d world
-        b2dr.render(world, gamecam.combined);
+
+        int[] backgroundLayers = { 0, 6,7, 8, 9, 11 }; // не выделяйте память при каждом кадре!
+        int[] foregroundLayers = { 10, 12 };    // не выделяйте память при каждом кадре!
+        tiledMapRenderer.render(backgroundLayers);
 
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
         game.batch.end();
+        tiledMapRenderer.render(foregroundLayers);
 
-        player.update(delta);
+        // render box2d world
+        b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
         hudCam.stage.draw();

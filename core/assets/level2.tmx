@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0e993c" nextobjectid="103">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0e993c" nextobjectid="119">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="667" columns="23">
   <grid orientation="orthogonal" width="16" height="16"/>
   <image source="tiles.png" width="760" height="958"/>
@@ -18,24 +18,36 @@
    eJztzjENAAAIBLGXhH91TIzMJKQ1cJcAAB/UcfuyPw8AwK4B0gsAwQ==
   </data>
  </layer>
+ <objectgroup name="player">
+  <object id="115" x="39.75" y="1003" width="9.5" height="8.75"/>
+ </objectgroup>
  <layer name="graphics" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztldkNgCAMQAkT8QezuKZreG0AbmITIekHIjG29eDjJQLGV3pEo5QyjcaL6B4QgyQhIh1Hg55el+HwXznjys0X/Wc156h/rX8ARmACZmC5Iaaau6Y9r/f/wRqfA2FNcn6pXsN+H5HyS9+fote45s8hbAR/P+1R5dUVcpLWEn685vTn6srlP+opTn/unT/4S/NM6c/NukVe6vnfAG9g9m8=
   </data>
  </layer>
  <layer name="home" width="32" height="32">
+  <properties>
+   <property name="z-index" type="int" value="1"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJzt1VtKQkEYwPEZfdZ8LNuA1R6i6xIsTZfQxWoH3ZaQkBb1lgpRaWG1gi7QGlxDUK/9xZEOIfNwvsMMwvng9+Iw8z8HD4xS8cQzPrOEZaxg1UO/iA2UUPbQr2AXe9j30P9GWg/8eOgP20MX/PZoXDnq9wLP8RDod0OeKXmHKPqSMz6wZXx66KfM/zCBjA7Xl7xDFH3JGSnzPUbdn8caFrAY7lhRP2/66yhY9krvgwM92qYafA/b2LHsl94HX/rPDU61uuw7ZO0Ixzix7JfeB8F+C1XafWes1VDHuWW/9D641aPdsXaPNjqW/f/vA9cTbPfc5+OJx9tcJ5RqoIlWwn2/S/MJz3hx1J9MKjWFLKbxSvcN7476OZozmMVcUn7eL3LcTs0=
   </data>
  </layer>
  <layer name="trees" width="32" height="32">
+  <properties>
+   <property name="z-index" type="int" value="1"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJztk0sOwCAIRPEQ/Ryin/tzoh6jbkgai6hQ2y54SxNnZBwAHMdxHMdx/ssUAObwnf8WvfcP/YfoPTb4P53XErXWRE/y6JkXVni05qVB8uDyssBlnfPA+5GZN/pP7+ZmTbM+Mhqa3qdaNOs1R8qa00fmrgWpVyV9S+9pDqm7JX1N77m/5DqMSv1aLHvTY+d6cwK5KhGl
   </data>
  </layer>
  <layer name="obticles" width="32" height="32">
+  <properties>
+   <property name="z-index" type="int" value="1"/>
+  </properties>
   <data encoding="base64" compression="zlib">
-   eJztlLsNwjAURR28ATuAInqowxhAy0fABPxr/jUwBluwBp8tkLiubD05IcWz3fhKR7LlKMfXiiNETExMTAxNRwrRBT0Zxj+GdwKmoJpoVMwxd2rw1cEMzMGC+F26VZrwtcAW7MBe6j35zAW+K7hJvScfsZ2vz/PPAn3vj4K1lHRvMPcfoPMQjHK6p8TH7f8X1/4leq/AGmwsZ0D99wqv/wDnEZzAOcffN+Zc/bOkHKqvOW8z+Z/gBd5kTNds95/jH/Bhesal/xvYH/uH9bvsX+bdLvubKbr/rvIDHUsydA==
+   eJxjYBgFo2AUjIJRMJiBECMCY+PT03562jsYQSozA0MaEKcz08Z8bOE7mMK/BujvWiCuA+J6GoUBOtBA8ncP0M5eIO4D4n4q2U8oTkH2O+DA9AAg+x8D6SdA/JQBlU0NQChOQfY/o5Jd2AChOEW3X4tK4Y4rTrHF8TMk9Y5Ush9fnCLzhaD+p3YZQEycPkOjqQmIMfPvANsPU/MXryra2Y/NXmrlf1L8TwtArv+pBYgxm5b+Rwb48j+tAACZ2TtX
   </data>
  </layer>
  <objectgroup name="obticle">
@@ -95,8 +107,6 @@
   <object id="70" x="383.5" y="191.5" width="129.5" height="161.5"/>
   <object id="71" x="384" y="966.5" width="127.5" height="34.5"/>
   <object id="72" x="512" y="928" width="96" height="61.5"/>
-  <object id="73" x="45.5" y="833" width="17" height="0.5"/>
-  <object id="74" x="62.5" y="833.5"/>
   <object id="76" x="0" y="703.25" width="320" height="6.75"/>
   <object id="82" x="320.333" y="735.333" width="192.333" height="6.33333"/>
   <object id="85" x="479" y="801" width="30" height="28"/>

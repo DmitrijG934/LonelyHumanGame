@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
 
 
         // Hud cam
-        hudCam = new Hud(game.batch);
+        hudCam = new Hud(game.batch, game);
 
         // make box2d world
         world = new World(new Vector2(0,0), true);
@@ -80,7 +80,7 @@ public class PlayScreen implements Screen {
         handleInput();
 
         // update hud cam
-        hudCam.update();
+        hudCam.update(delta);
 
         // update player input
         player.handleInput(delta);
@@ -136,7 +136,7 @@ public class PlayScreen implements Screen {
 
 
     }
-    
+
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);

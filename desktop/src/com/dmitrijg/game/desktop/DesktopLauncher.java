@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new LonelyHuman(), config);
 		config.addIcon("icon.png", Files.FileType.Local);
-		config.title = "Lonely Man";
+		config.title = "Survivor";
 		config.width = 800;
 		config.height = 600;
 	}

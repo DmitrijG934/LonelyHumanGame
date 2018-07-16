@@ -42,6 +42,7 @@ public class MenuScreen implements Screen {
     private LonelyHuman game;
 
     private Label startLabel;
+    private Label subTitle;
     private Label exitLabel;
     private Label gameLabel;
 
@@ -64,9 +65,11 @@ public class MenuScreen implements Screen {
         exitLabel = new Label("EXIT", inactiveStyle);
 
         Label.LabelStyle style = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
-        style.font.getData().scale(2.5f);
+        style.font.getData().scale(1.5f);
 
         gameLabel = new Label("LONELY HUMAN", style);
+        style.font.getData().scale(.5f);
+        subTitle = new Label("\"Survivor\"".toUpperCase(), style);
 
         // setting table
         Table tableCenter = new Table();
@@ -74,12 +77,14 @@ public class MenuScreen implements Screen {
 
         tableCenter.top();
         tableCenter.add(gameLabel).align(Align.center).expandX();
+        tableCenter.row();
+        tableCenter.add(subTitle).align(Align.center).expandX();
 
         tableCenter.row();
 
         tableCenter.center();
 
-        tableCenter.add(startLabel).expandX().padTop(50);
+        tableCenter.add(startLabel).expandX().padTop(20);
         tableCenter.row();
         tableCenter.add(exitLabel).expandX().padTop(20);
 

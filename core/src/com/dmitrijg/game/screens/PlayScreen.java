@@ -55,7 +55,6 @@ public class PlayScreen implements Screen {
         map = mapLoader.load("level.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
 
-
     }
 
 
@@ -121,9 +120,6 @@ public class PlayScreen implements Screen {
 
     private void handleInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
-            game.dispose();
-            player.dispose();
-            // set main menu screen
             game.setScreen(new MenuScreen(game));
         }
     }
@@ -179,7 +175,9 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        System.out.println("playstate disposed");
         map.dispose();
+        player.dispose();
         tiledMapRenderer.dispose();
         b2dr.dispose();
     }

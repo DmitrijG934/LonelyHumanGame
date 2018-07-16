@@ -26,7 +26,7 @@ public class Hud implements Disposable {
 
     private LonelyHuman game;
 
-    private long previousTime = 5;
+    private static long previousTime = 20;
     private float timer = 0;
 
     public Hud(SpriteBatch batch, LonelyHuman game) {
@@ -65,13 +65,21 @@ public class Hud implements Disposable {
         }
         if(previousTime == 0) {
             // set new game over screen
-            dispose();
             game.setScreen(new GameOverScreen(game.batch, game));
         }
     }
 
+    public static long getPreviousTime() {
+        return previousTime;
+    }
+
+    public static void setPreviousTime(long previousTime) {
+        Hud.previousTime = previousTime;
+    }
+
     @Override
     public void dispose() {
+        System.out.println("hud disposed");
         stage.dispose();
     }
 

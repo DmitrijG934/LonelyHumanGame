@@ -22,4 +22,10 @@ public class LonelyHuman extends Game {
 		super.render();
 	}
 
+	@Override
+	public void dispose() {
+		System.out.println("game disposed");
+		super.dispose();
+		batch.dispose();
+	}
 }

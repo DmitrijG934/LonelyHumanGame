@@ -54,7 +54,7 @@ public class GameOverScreen implements Disposable, Screen {
         gameOverStyle.font.getData().setScale(2.5f);
         gameOverLabel = new Label("GAME OVER!", gameOverStyle);
 
-        retryLabel = new Label("Retry?", activeStyle);
+        retryLabel = new Label("Retry", activeStyle);
         exitLabel = new Label("Exit", inactiveStyle);
 
         table.add(gameOverLabel).expandX().align(Align.center);
@@ -84,8 +84,7 @@ public class GameOverScreen implements Disposable, Screen {
             exitLabel.setStyle(inactiveStyle);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && status.equals("retry")) {
-            dispose();
-            game.setScreen(new PlayScreen(game));
+            game.setScreen(new ChooseDifficultyMenu(game));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && status.equals("exit")) {
             Gdx.app.exit();
@@ -128,6 +127,7 @@ public class GameOverScreen implements Disposable, Screen {
 
     @Override
     public void dispose() {
+        System.out.println("game over disposed");
         stage.dispose();
     }
 }

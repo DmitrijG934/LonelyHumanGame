@@ -142,14 +142,14 @@ public class PlayScreen implements Screen {
         int[] foregroundLayers = { 10, 12 };    // не выделяйте память при каждом кадре!
         tiledMapRenderer.render(backgroundLayers);
 
+        // render box2d world
+        b2dr.render(world, gamecam.combined);
+
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
         game.batch.end();
         tiledMapRenderer.render(foregroundLayers);
-
-        // render box2d world
-        b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
         hudCam.stage.draw();

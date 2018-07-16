@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextobjectid="71">
+ <tileset firstgid="1" name="tiles2" tilewidth="32" tileheight="32" tilecount="256" columns="16">
+  <image source="tiles2.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="257" name="tiles" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="667" columns="23">
+  <image source="tiles.png" width="760" height="958"/>
+ </tileset>
+ <layer name="background" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztk0sOgCAMBfEWHgN/gbVR738kuoCki4poaDHaxSRSjQMtz3bGWEVRFOV19CaPhP/JO6nefNF/NXOJ+Zf6B2AEJmAGlgp7Kjlrqm3AChzxeWecCeVvddfUX8d/J2sc+fMIF8H/TzWuvvpMT9K6hR+vJf3UXKX8Z3dK0k998wd/Ls+cfirrDnm58x8A+3u8zA==
+  </data>
+ </layer>
+ <objectgroup name="player">
+  <object id="69" x="45.3333" y="1007" width="5" height="5"/>
+ </objectgroup>
+ <objectgroup name="obticles">
+  <object id="30" x="13" y="736" width="5" height="242.5"/>
+  <object id="31" x="18.25" y="737" width="63.25" height="30.25"/>
+  <object id="32" x="110.25" y="736.5" width="67" height="31.5"/>
+  <object id="33" x="177.25" y="768" width="0.25" height="0.5"/>
+  <object id="34" x="237.75" y="736" width="63.75" height="32.25"/>
+  <object id="35" x="301.75" y="735.75" width="3.75" height="81.75"/>
+  <object id="36" x="302.25" y="832.75" width="3.25" height="48.75"/>
+  <object id="37" x="302" y="896.5" width="3.5" height="49.5"/>
+  <object id="38" x="302.25" y="960.25" width="2.75" height="63"/>
+  <object id="39" x="237.5" y="1020" width="64.75" height="3.75"/>
+  <object id="40" x="110" y="1020" width="67.75" height="4.75"/>
+  <object id="41" x="301.818" y="960.364" width="3.63636" height="63.8182"/>
+  <object id="42" x="0" y="704" width="320" height="4.5"/>
+  <object id="43" x="319.75" y="736.25" width="31.75" height="5.75"/>
+  <object id="44" x="347.75" y="704.25" width="103.75" height="6"/>
+  <object id="45" x="0" y="704" width="320.25" height="6"/>
+  <object id="47" x="384.333" y="736" width="127.667" height="5.33333"/>
+  <object id="48" x="447.333" y="640" width="4.66667" height="70"/>
+  <object id="49" x="448" y="544.667" width="3.66667" height="63.3333"/>
+  <object id="50" x="348" y="544" width="100.333" height="5.33333"/>
+  <object id="51" x="347.333" y="549.667" width="4" height="154"/>
+  <object id="52" x="161" y="575" width="31" height="0.666667"/>
+  <object id="53" x="160.667" y="512" width="36" height="37.3333"/>
+  <object id="54" x="159.667" y="480" width="320.667" height="5.33333"/>
+  <object id="55" x="475.333" y="415.667" width="5.33333" height="64"/>
+  <object id="56" x="288" y="384" width="191.667" height="5"/>
+  <object id="57" x="447.333" y="351.333" width="64.6667" height="6"/>
+  <object id="59" x="252" y="353" width="162.667" height="5.33333"/>
+  <object id="60" x="252" y="357.667" width="5.33333" height="33"/>
+  <object id="61" x="365" y="578.333" width="81.6667" height="29.3333"/>
+  <object id="62" x="366" y="608.667" width="3" height="82.3333"/>
+  <object id="63" x="430.333" y="641.333" width="2.66667" height="48"/>
+  <object id="65" x="430" y="640" width="3.66667" height="48.6667"/>
+  <object id="67" x="368.333" y="684.333" width="61.3333" height="5.33333"/>
+  <object id="68" x="434" y="673.667" width="13" height="10.6667"/>
+  <object id="70" x="0.272727" y="575.348" width="31" height="0.666667"/>
+ </objectgroup>
+ <objectgroup name="trees">
+  <object id="15" x="214" y="895.333" width="20.6667" height="29.3333"/>
+  <object id="16" x="374" y="831.333" width="18.6667" height="26.6667"/>
+  <object id="19" x="438" y="928" width="22" height="27.3333"/>
+  <object id="20" x="534.667" y="734" width="19.3333" height="27.3333"/>
+  <object id="21" x="693.333" y="896.667" width="24" height="28.6667"/>
+  <object id="22" x="756" y="702.667" width="24" height="30"/>
+  <object id="23" x="374.667" y="641.333" width="19.3333" height="26"/>
+  <object id="24" x="640.667" y="449.333" width="8" height="27.3333"/>
+  <object id="25" x="406" y="416" width="18.6667" height="28.6667"/>
+  <object id="26" x="567" y="164" width="19.5" height="21.5"/>
+  <object id="27" x="726" y="257" width="20" height="26"/>
+  <object id="28" x="885" y="416.5" width="21" height="26.5"/>
+  <object id="29" x="948.5" y="226.5" width="20" height="25"/>
+ </objectgroup>
+ <objectgroup name="homes">
+  <object id="8" x="31" y="416" width="130" height="161"/>
+  <object id="9" x="191" y="575.5" width="129" height="128"/>
+  <object id="10" x="224" y="384" width="95.5" height="66"/>
+  <object id="11" x="384.5" y="222.5" width="127.5" height="129.5"/>
+  <object id="12" x="512" y="319.5" width="127.5" height="192"/>
+  <object id="13" x="512.5" y="576.5" width="128.5" height="159.5"/>
+  <object id="14" x="511" y="940.5" width="97.5" height="50.5"/>
+ </objectgroup>
+ <objectgroup name="items">
+  <object id="1" x="323" y="388" width="25" height="30"/>
+  <object id="2" x="286.333" y="416.667" width="65.6667" height="62.6667"/>
+  <object id="3" x="159.333" y="416" width="64.3333" height="63.6667"/>
+  <object id="6" x="384.667" y="966.333" width="127.667" height="35.6667"/>
+ </objectgroup>
+ <layer name="flowers" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzbzcjAsHsA8S4aYFIAve3fjSZPa/vR7Rto/w9V+y/SyH5KwEUi7SKUBkbB8ASj8U4ZmAPFo4B8QGwZNQroA4ZLfNCzniUFDJYyd7CFD7HpjhR3v6CiH3GZRax7iFU3WNIHLjBQ6QZb+GNzCyXuIyYNUmL+YMtzxAAA33qHZQ==
+  </data>
+ </layer>
+ <layer name="home" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1UkKwjAYBeA0+6onUa/jcAQncO2AWncOKwUHcC+IMx5C8Ay9gAqC7tRXTLFIzSItjUIefCBY/teSH0KIiorKv6SgEZJlilrw/Vd0hujLTUK/3W2T0W9q8vo/s8G7bJmdz+dxhBOcOc/sHft4EOz/9g13eFg/OHN1dg5hiAieh5dv8KPfywyd7aOsfj8is79G3WXYPuQgz9mJBP5LQgrSAvt/oW8z6FEysdQxqwEGNDlzC+wZQ/A+cPZPoY9uywCzhjCCMWeu1/tgTt0tMGsJK1hz5v7CfWAzJdyHKioqwaUEZahAFaIQg3hA/S1oQwe6Psx7AsquPso=
+  </data>
+ </layer>
+ <layer name="obticles" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztlE0KwjAQRic9Qk9RPIXef1u71/7sra4shX4DFWJINItMIjIPHrQE5ssMSYgURVGUX6OpiGqPjP0tjW8PubJDNH+cH5p3rvlz7UPB+fp6c+9C6v218Ay7wDrn94Zo2M09H86fjFz9C7zCHg5f8ieB/m9whnf4COQ/kbvspso/VnEytfV/SpT/OlOjef9219x3P9UbEHOmJM9dTO21cL72XzZfsv+Y2pL923y6/1JsRxY0wg==
+  </data>
+ </layer>
+ <layer name="items" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzcEJACAMBMHUrx1oLfZmGjA/BWEG9nGviwCAs/Xwq2W92LeNbBYbAOBnGxb3BVI=
+  </data>
+ </layer>
+ <layer name="trees" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztloENwCAIBIk7WDuF7r9dHcBAUcEE/wf4i+SSlwhZTUlEbzrHr53dDvJzZz8Kvse9OIbHvTiG9l4z8WDcmBV3d3gvucv17/Be8orr93ASzscNdhY7q2FE29mb/B+99e+trXdW6rfeWanf2kn8LePkAzZiCYg=
+  </data>
+ </layer>
+ <layer name="tree_legs" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1YENACAIA8GGeWT/9ZzBGFDgbwJCG5CA2pZJbq+nqCNjX2SCCDe9yugknUdX3PQz/NleJu365z87KYdoG9/BBIw=
+  </data>
+ </layer>
+ <layer name="home_top" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DoACdGBoYoIHYBYldG+tsfCbU/GohjBsD+kQT2AfF+ID6AR808YBxsg+KFVI6Pc0B8Hogv4FGzFcn+HWTaj8sP94D4PhA/IM9YogE1/DAKhhewA6aDMCB2AGLHAUgToVD7w4E4Ao/9A10fjIJRMApGwUgEvEDMB8T8QCwwAPbLArEcEMsDscIA2D8cAABTjhlL
+  </data>
+ </layer>
+</map>

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
+import com.dmitrijg.game.screens.GameOverScreen;
 import com.dmitrijg.game.screens.MenuScreen;
 
 public class Hud implements Disposable {
@@ -25,7 +26,7 @@ public class Hud implements Disposable {
 
     private LonelyHuman game;
 
-    private long previousTime = 20;
+    private long previousTime = 5;
     private float timer = 0;
 
     public Hud(SpriteBatch batch, LonelyHuman game) {
@@ -55,9 +56,9 @@ public class Hud implements Disposable {
     }
 
     public void update(float delta){
-        //timer += delta;
+        timer += delta;
         fpsManager.setText(String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()));
-        /*if(timer >= 1) {
+        if(timer >= 1) {
             previousTime--;
             timeManager.setText(String.format("Time: %d", previousTime));
             timer = 0;
@@ -65,8 +66,8 @@ public class Hud implements Disposable {
         if(previousTime == 0) {
             // set new game over screen
             dispose();
-            game.setScreen(new MenuScreen(game));
-        }*/
+            game.setScreen(new GameOverScreen(game.batch, game));
+        }
     }
 
     @Override

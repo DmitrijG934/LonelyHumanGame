@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.addIcon("icon.png", Files.FileType.Local);
 		config.title = "Survivor";
 		config.width = 1280;
-		config.height = 600;
+		config.height = 768;
 		config.foregroundFPS = 60;
 	}
 }

@@ -12,7 +12,8 @@ public class DesktopLauncher {
 		new LwjglApplication(new LonelyHuman(), config);
 		config.addIcon("icon.png", Files.FileType.Local);
 		config.title = "Survivor";
-		config.width = 800;
+		config.width = 1280;
 		config.height = 600;
+		config.foregroundFPS = 60;
 	}
 }

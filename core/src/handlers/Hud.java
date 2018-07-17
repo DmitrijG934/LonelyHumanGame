@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
 import com.dmitrijg.game.screens.GameOverScreen;
-import com.dmitrijg.game.screens.MenuScreen;
+import com.dmitrijg.game.screens.WinScreen;
 
 public class Hud implements Disposable {
     private Viewport viewport;
@@ -28,7 +28,7 @@ public class Hud implements Disposable {
 
     private static long previousTime = 20;
     private float timer = 0;
-    public static int amountItems = 7;
+    public static int amountItems;
 
     public static int scoreCount = 0;
 
@@ -71,9 +71,17 @@ public class Hud implements Disposable {
             timeManager.setText(String.format("Time: %d", previousTime));
             timer = 0;
         }
-        if(previousTime == 0) {
+        if(previousTime == 0 && scoreCount != amountItems) {
             // set new game over screen
+            dispose();
             game.setScreen(new GameOverScreen(game.batch, game));
+            scoreCount = 0;
+        }
+        if(previousTime >= 0 && scoreCount == amountItems) {
+            // set new win screen
+            dispose();
+            game.setScreen(new WinScreen(game.batch, game));
+            scoreCount = 0;
         }
         scoreManager.setText(String.format("Score: %d (Remains: %d)", scoreCount, amountItems));
     }

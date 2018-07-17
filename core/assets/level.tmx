@@ -14,7 +14,7 @@
  <objectgroup name="player">
   <object id="69" x="45.3333" y="1007" width="5" height="5"/>
  </objectgroup>
- <objectgroup name="obticles" visible="0">
+ <objectgroup name="obticles">
   <object id="30" x="13" y="736" width="5" height="242.5"/>
   <object id="31" x="18.25" y="737" width="63.25" height="30.25"/>
   <object id="32" x="110.25" y="736.5" width="67" height="31.5"/>
@@ -104,6 +104,9 @@
   </data>
  </layer>
  <layer name="items" width="32" height="32">
+  <properties>
+   <property name="id" type="int" value="10"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJzt1cEJADAIBEH7ryTpMj0cREFmKjg/bhWpMz3gk613ARk/od+dHgDQIO2LLvXRo30egxQEmw==
   </data>

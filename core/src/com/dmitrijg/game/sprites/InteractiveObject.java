@@ -1,21 +1,14 @@
 package com.dmitrijg.game.sprites;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-import com.dmitrijg.game.screens.PlayScreen;
+import com.badlogic.gdx.utils.Disposable;
 
 import static com.dmitrijg.game.LonelyHuman.PPM;
 
 
-public abstract class InteractiveObject {
+public abstract class InteractiveObject implements Disposable {
     protected World world;
     protected TiledMap map;
     protected Rectangle bounds;
@@ -57,6 +50,18 @@ public abstract class InteractiveObject {
         TiledMapTileLayer.Cell cell = layer.getCell((int) (body.getPosition().x * PPM) / 32,
                 (int) (body.getPosition().y * PPM) / 32);
         cell.setTile(null);
+    }
+
+    public TiledMapTileLayer.Cell getCell() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(9);
+        return layer.getCell((int) (body.getPosition().x * PPM) / 32,
+                (int) (body.getPosition().y * PPM) / 32);
+    }
+
+
+    public void dispose() {
+        world.dispose();
+        world.dispose();
     }
 
 }

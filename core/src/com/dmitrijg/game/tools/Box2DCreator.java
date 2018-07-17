@@ -11,6 +11,8 @@ import com.dmitrijg.game.sprites.Player;
 import static com.dmitrijg.game.LonelyHuman.PPM;
 
 public class Box2DCreator {
+
+    public int items = 0;
     public Box2DCreator(World world, TiledMap map) {
         // BodyDef
         BodyDef bdef = new BodyDef();
@@ -70,9 +72,8 @@ public class Box2DCreator {
         for (MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new Item(world, map, rect);
+            items++;
         }
-
-
-
     }
+
 }

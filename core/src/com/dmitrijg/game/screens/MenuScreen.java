@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
+import com.dmitrijg.game.sprites.Item;
 
 public class MenuScreen implements Screen {
 
@@ -57,6 +58,7 @@ public class MenuScreen implements Screen {
         stage = new Stage(viewport, game.batch);
         camView = new FitViewport(LonelyHuman.V_WIDTH, LonelyHuman.V_HEIGHT, menuCam);
         camStage = new Stage(camView, game.batch);
+
 
         // labels
         activeStyle = new Label.LabelStyle(new BitmapFont(), Color.RED);

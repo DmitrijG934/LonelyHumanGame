@@ -15,26 +15,24 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
-import com.dmitrijg.game.sprites.Item;
 
-
-public class GameOverScreen implements Disposable, Screen {
+public class WinScreen implements Disposable, Screen {
 
     private LonelyHuman game;
 
     private Stage stage;
     private Viewport gameport;
 
-    private Label gameOverLabel;
-    private Label retryLabel;
+    private Label winGameLabel;
+    private Label playAgain;
     private Label exitLabel;
 
     private Label.LabelStyle activeStyle;
     private Label.LabelStyle inactiveStyle;
 
-    private String status = "retry";
+    private String status = "play_again";
 
-    public GameOverScreen(SpriteBatch batch, LonelyHuman game) {
+    public WinScreen(SpriteBatch batch, LonelyHuman game) {
         this.game = game;
 
         gameport = new FitViewport(LonelyHuman.V_WIDTH, LonelyHuman.V_HEIGHT);
@@ -45,24 +43,23 @@ public class GameOverScreen implements Disposable, Screen {
 
         table.setFillParent(true);
 
-
-        Label.LabelStyle gameOverStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
+        Label.LabelStyle winLabelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
         inactiveStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
         activeStyle = new Label.LabelStyle(new BitmapFont(), Color.RED);
 
         inactiveStyle.font.getData().setScale(1.5f);
         activeStyle.font.getData().setScale(1.5f);
-        gameOverStyle.font.getData().setScale(2.5f);
-        gameOverLabel = new Label("GAME OVER!", gameOverStyle);
+        winLabelStyle.font.getData().setScale(2.5f);
+        winGameLabel = new Label("YOU WIN!", winLabelStyle);
 
-        retryLabel = new Label("Retry", activeStyle);
+        playAgain = new Label("Play again", activeStyle);
         exitLabel = new Label("Exit", inactiveStyle);
 
-        table.add(gameOverLabel).expandX().align(Align.center);
+        table.add(winGameLabel).expandX().align(Align.center);
 
         table.row();
-        table.add(retryLabel).expandX().align(Align.center).padTop(20);
+        table.add(playAgain).expandX().align(Align.center).padTop(20);
         table.row();
         table.add(exitLabel).expandX().align(Align.center).padTop(10);
 
@@ -77,21 +74,22 @@ public class GameOverScreen implements Disposable, Screen {
     public void handleInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             status = "exit";
-            retryLabel.setStyle(inactiveStyle);
+            playAgain.setStyle(inactiveStyle);
             exitLabel.setStyle(activeStyle);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            status = "retry";
-            retryLabel.setStyle(activeStyle);
+            status = "play_again";
+            playAgain.setStyle(activeStyle);
             exitLabel.setStyle(inactiveStyle);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && status.equals("retry")) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && status.equals("play_again")) {
             game.setScreen(new ChooseDifficultyMenu(game));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && status.equals("exit")) {
             Gdx.app.exit();
         }
     }
+
 
     @Override
     public void show() {
@@ -129,7 +127,6 @@ public class GameOverScreen implements Disposable, Screen {
 
     @Override
     public void dispose() {
-        System.out.println("game over disposed");
         stage.dispose();
     }
 }

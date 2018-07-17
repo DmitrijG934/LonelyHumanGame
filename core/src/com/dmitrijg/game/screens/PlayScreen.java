@@ -5,10 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -29,6 +26,10 @@ public class PlayScreen implements Screen {
     // create cameras and viewports
     private OrthographicCamera gamecam;
     private Viewport gameport;
+
+    public PlayScreen() {
+
+    }
 
     public TiledMap getMap() {
         return map;
@@ -80,7 +81,8 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
 
-        new Box2DCreator(world, map);
+        Box2DCreator box2DCreator = new Box2DCreator(world, map);
+        Hud.amountItems = box2DCreator.items;
 
         // player
         player = new Player(world);
@@ -89,9 +91,6 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new CustomContactListener());
 
-    }
-
-    public PlayScreen() {
     }
 
     @Override
@@ -132,6 +131,7 @@ public class PlayScreen implements Screen {
     private void handleInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
             game.setScreen(new MenuScreen(game));
+            Hud.scoreCount = 0;
         }
     }
 

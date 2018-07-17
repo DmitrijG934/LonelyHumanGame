@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.dmitrijg.game.LonelyHuman;
 import com.dmitrijg.game.screens.PlayScreen;
 
 import static com.dmitrijg.game.LonelyHuman.PPM;
@@ -133,7 +134,9 @@ public class Player extends Sprite {
             ph.setAsBox((rect.getWidth() / 2) / PPM, (rect.getHeight() / 2) / PPM);
 
             fdef.shape = ph;
-            body.createFixture(fdef);
+            fdef.filter.categoryBits = LonelyHuman.PLAYER_BIT;
+            fdef.filter.maskBits = LonelyHuman.DEFAULT_BIT | LonelyHuman.ITEM_BIT;
+            body.createFixture(fdef).setUserData("player");
 
         }
 

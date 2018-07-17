@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
 import com.dmitrijg.game.sprites.Player;
 import com.dmitrijg.game.tools.Box2DCreator;
+import com.dmitrijg.game.tools.CustomContactListener;
 import handlers.Hud;
 import static com.dmitrijg.game.LonelyHuman.PPM;
 
@@ -43,6 +44,10 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    // layers
+    private int[] backgroundLayers;
+    private int[] foregroundLayers;
+
     // Hud
     private Hud hudCam;
 
@@ -67,6 +72,10 @@ public class PlayScreen implements Screen {
         // Hud cam
         hudCam = new Hud(game.batch, game);
 
+        // layers
+        backgroundLayers = new int[]{ 0, 6,7, 8, 9, 11 }; // не выделяйте память при каждом кадре!
+        foregroundLayers = new int[]{ 10, 12 };    // не выделяйте память при каждом кадре!
+
         // make box2d world
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
@@ -77,6 +86,8 @@ public class PlayScreen implements Screen {
         player = new Player(world);
 
         gamecam.position.set(new Vector2(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2), 0);
+
+        world.setContactListener(new CustomContactListener());
 
     }
 
@@ -132,10 +143,8 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // render map
-        tiledMapRenderer.render();
+        //tiledMapRenderer.render();
 
-        int[] backgroundLayers = { 0, 6,7, 8, 9, 11 }; // не выделяйте память при каждом кадре!
-        int[] foregroundLayers = { 10, 12 };    // не выделяйте память при каждом кадре!
         tiledMapRenderer.render(backgroundLayers);
 
         // render box2d world

@@ -3,7 +3,6 @@ package com.dmitrijg.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dmitrijg.game.screens.MenuScreen;
-import com.dmitrijg.game.screens.PlayScreen;
 
 public class LonelyHuman extends Game {
 	public SpriteBatch batch;
@@ -11,6 +10,12 @@ public class LonelyHuman extends Game {
 	public static final int V_WIDTH = 480;
 	public static final int V_HEIGHT = 208;
 	public static final float PPM = 100;
+
+	public static final short DEFAULT_BIT = 1;
+	public static final short PLAYER_BIT = 2;
+	public static final short ITEM_BIT = 4;
+	public static final short DISAPPEAR_ITEM_BIT = 8;
+
 	
 	@Override
 	public void create () {

@@ -22,12 +22,15 @@ public class Hud implements Disposable {
 
     private Label fpsManager;
     private Label timeManager;
-    private Label weather;
+    private Label scoreManager;
 
     private LonelyHuman game;
 
     private static long previousTime = 20;
     private float timer = 0;
+    public static int amountItems = 7;
+
+    public static int scoreCount = 0;
 
     public Hud(SpriteBatch batch, LonelyHuman game) {
 
@@ -41,6 +44,10 @@ public class Hud implements Disposable {
                 new BitmapFont(), Color.WHITE
         ));
 
+        scoreManager = new Label(String.format("Score: %d", Gdx.graphics.getFramesPerSecond()), new Label.LabelStyle(
+                new BitmapFont(), Color.WHITE
+        ));
+
         timeManager = new Label(String.format("Time: %d", previousTime), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         Table table = new Table();
@@ -49,6 +56,7 @@ public class Hud implements Disposable {
         table.setFillParent(true);
 
         table.add(fpsManager).expandX().align(Align.left);
+        table.add(scoreManager).expandX().align(Align.center);
         table.add(timeManager).expandX().align(Align.right);
 
         stage.addActor(table);
@@ -67,6 +75,7 @@ public class Hud implements Disposable {
             // set new game over screen
             game.setScreen(new GameOverScreen(game.batch, game));
         }
+        scoreManager.setText(String.format("Score: %d (Remains: %d)", scoreCount, amountItems));
     }
 
     public static long getPreviousTime() {

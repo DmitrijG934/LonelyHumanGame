@@ -163,10 +163,10 @@ public class ChooseDifficultyMenu implements Screen {
        }
        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
            if (activeLabel.equals("easy")) {
-               Hud.setPreviousTime(30);
+               Hud.setPreviousTime(40);
 
            } else if (activeLabel.equals("normal")) {
-               Hud.setPreviousTime(20);
+               Hud.setPreviousTime(30);
            } else if (activeLabel.equals("hard")) {
                Hud.setPreviousTime(15);
            } else if (activeLabel.equals("insane")) {

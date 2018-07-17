@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextobjectid="71">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextobjectid="81">
  <tileset firstgid="1" name="tiles2" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="tiles2.png" width="512" height="512"/>
  </tileset>
@@ -14,7 +14,7 @@
  <objectgroup name="player">
   <object id="69" x="45.3333" y="1007" width="5" height="5"/>
  </objectgroup>
- <objectgroup name="obticles">
+ <objectgroup name="obticles" visible="0">
   <object id="30" x="13" y="736" width="5" height="242.5"/>
   <object id="31" x="18.25" y="737" width="63.25" height="30.25"/>
   <object id="32" x="110.25" y="736.5" width="67" height="31.5"/>
@@ -51,6 +51,8 @@
   <object id="67" x="368.333" y="684.333" width="61.3333" height="5.33333"/>
   <object id="68" x="434" y="673.667" width="13" height="10.6667"/>
   <object id="70" x="0.272727" y="575.348" width="31" height="0.666667"/>
+  <object id="78" x="288.5" y="418" width="62.75" height="62"/>
+  <object id="79" x="160.25" y="416.25" width="61.75" height="63.25"/>
  </objectgroup>
  <objectgroup name="trees">
   <object id="15" x="214" y="895.333" width="20.6667" height="29.3333"/>
@@ -75,12 +77,16 @@
   <object id="12" x="512" y="319.5" width="127.5" height="192"/>
   <object id="13" x="512.5" y="576.5" width="128.5" height="159.5"/>
   <object id="14" x="511" y="940.5" width="97.5" height="50.5"/>
+  <object id="71" x="384.5" y="966" width="126.5" height="35"/>
  </objectgroup>
  <objectgroup name="items">
   <object id="1" x="323" y="388" width="25" height="30"/>
-  <object id="2" x="286.333" y="416.667" width="65.6667" height="62.6667"/>
-  <object id="3" x="159.333" y="416" width="64.3333" height="63.6667"/>
-  <object id="6" x="384.667" y="966.333" width="127.667" height="35.6667"/>
+  <object id="72" x="163.667" y="129.333" width="25" height="38.3333"/>
+  <object id="73" x="225" y="486.333" width="28.6667" height="25"/>
+  <object id="74" x="352.667" y="903" width="29.6667" height="23.6667"/>
+  <object id="75" x="514.667" y="801.333" width="25" height="39"/>
+  <object id="76" x="482.667" y="67.3333" width="26" height="36.6667"/>
+  <object id="80" x="66" y="808" width="29.3333" height="20.6667"/>
  </objectgroup>
  <layer name="flowers" width="32" height="32">
   <data encoding="base64" compression="zlib">
@@ -94,12 +100,12 @@
  </layer>
  <layer name="obticles" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlE0KwjAQRic9Qk9RPIXef1u71/7sra4shX4DFWJINItMIjIPHrQE5ssMSYgURVGUX6OpiGqPjP0tjW8PubJDNH+cH5p3rvlz7UPB+fp6c+9C6v218Ay7wDrn94Zo2M09H86fjFz9C7zCHg5f8ieB/m9whnf4COQ/kbvspso/VnEytfV/SpT/OlOjef9219x3P9UbEHOmJM9dTO21cL72XzZfsv+Y2pL923y6/1JsRxY0wg==
+   eJztlEEKwjAQRSc9Qk9RPIVeT2+g11L3tbX7qitF8A+0kIYmZpFJu5gPDxICeZkwCZFGo9Fo1paqICpn4Nhj6cydQdK9B4fAnFMJ+o/gFJhL+333nev+ee9Npt7y+d24byH1+c7gAq6edfY3hqgdyH0/7O+M3P41uIEGtH/8nUD9PXiAJ3h5/G94PwOp/NsiDk5pzXeJ/GNP3c107K65/36qPyCmpyT7Lmbv78J+rX9Zv2T9MXtL1m8n9P6l8gMJLDlW
   </data>
  </layer>
  <layer name="items" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzcEJACAMBMHUrx1oLfZmGjA/BWEG9nGviwCAs/Xwq2W92LeNbBYbAOBnGxb3BVI=
+   eJzt1cEJADAIBEH7ryTpMj0cREFmKjg/bhWpMz3gk613ARk/od+dHgDQIO2LLvXRo30egxQEmw==
   </data>
  </layer>
  <layer name="trees" width="32" height="32">

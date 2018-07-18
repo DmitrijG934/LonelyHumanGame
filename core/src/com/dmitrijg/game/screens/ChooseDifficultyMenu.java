@@ -55,6 +55,8 @@ public class ChooseDifficultyMenu implements Screen {
     public ChooseDifficultyMenu(LonelyHuman game) {
         this.game = game;
 
+        if(PlayScreen.music != null) PlayScreen.music.stop();
+
         labels = new Label[4];
 
         menuCam = new OrthographicCamera();

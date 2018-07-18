@@ -1,6 +1,9 @@
 package com.dmitrijg.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dmitrijg.game.screens.MenuScreen;
 
@@ -16,11 +19,19 @@ public class LonelyHuman extends Game {
 	public static final short ITEM_BIT = 4;
 	public static final short DISAPPEAR_ITEM_BIT = 8;
 
+	// create asset manager
+	public static AssetManager manager;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		setScreen(new MenuScreen(this));
+		manager = new AssetManager();
+
+		// load resources
+		manager.load("ogg/music/game_theme.ogg", Music.class);
+		manager.load("ogg/sounds/get_item.ogg", Sound.class);
+		manager.finishLoading();
 	}
 
 	public void render() {
@@ -32,5 +43,6 @@ public class LonelyHuman extends Game {
 		System.out.println("game disposed");
 		super.dispose();
 		batch.dispose();
+		manager.dispose();
 	}
 }

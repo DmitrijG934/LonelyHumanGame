@@ -37,6 +37,8 @@ public class GameOverScreen implements Disposable, Screen {
     public GameOverScreen(SpriteBatch batch, LonelyHuman game) {
         this.game = game;
 
+        if(PlayScreen.music != null) PlayScreen.music.stop();
+
         gameport = new FitViewport(LonelyHuman.V_WIDTH, LonelyHuman.V_HEIGHT);
         stage = new Stage(gameport, batch);
 

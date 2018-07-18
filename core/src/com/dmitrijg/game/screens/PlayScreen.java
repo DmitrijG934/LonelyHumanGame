@@ -3,6 +3,7 @@ package com.dmitrijg.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,6 +19,7 @@ import com.dmitrijg.game.tools.Box2DCreator;
 import com.dmitrijg.game.tools.CustomContactListener;
 import handlers.Hud;
 import static com.dmitrijg.game.LonelyHuman.PPM;
+import static com.dmitrijg.game.LonelyHuman.manager;
 
 public class PlayScreen implements Screen {
 
@@ -55,6 +57,9 @@ public class PlayScreen implements Screen {
     // Create player
     private Player player;
 
+    // create music
+    public static Music music;
+
     static {
         // set tiled map
         mapLoader = new TmxMapLoader();
@@ -90,6 +95,10 @@ public class PlayScreen implements Screen {
         gamecam.position.set(new Vector2(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2), 0);
 
         world.setContactListener(new CustomContactListener());
+
+        music = manager.get("ogg/music/game_theme.ogg", Music.class);
+        music.setLooping(true);
+        music.play();
 
     }
 
@@ -132,6 +141,7 @@ public class PlayScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
             game.setScreen(new MenuScreen(game));
             Hud.scoreCount = 0;
+            music.stop();
         }
     }
 
@@ -158,7 +168,6 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(hudCam.stage.getCamera().combined);
         hudCam.stage.draw();
-
 
     }
 
@@ -189,5 +198,6 @@ public class PlayScreen implements Screen {
         player.dispose();
         tiledMapRenderer.dispose();
         b2dr.dispose();
+        music.dispose();
     }
 }

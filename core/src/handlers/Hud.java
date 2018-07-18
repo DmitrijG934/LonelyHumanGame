@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dmitrijg.game.LonelyHuman;
 import com.dmitrijg.game.screens.GameOverScreen;
+import com.dmitrijg.game.screens.PlayScreen;
 import com.dmitrijg.game.screens.WinScreen;
 
 public class Hud implements Disposable {

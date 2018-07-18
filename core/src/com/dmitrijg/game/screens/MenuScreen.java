@@ -73,7 +73,7 @@ public class MenuScreen implements Screen {
         Label.LabelStyle style = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
         style.font.getData().scale(1.5f);
 
-        gameLabel = new Label("LONELY HUMAN", style);
+        gameLabel = new Label("FAMILY GUY", style);
         style.font.getData().scale(.5f);
         subTitle = new Label("\"Survivor\"".toUpperCase(), style);
 

@@ -3,6 +3,7 @@ package com.dmitrijg.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -23,6 +24,8 @@ public class WinScreen implements Disposable, Screen {
     private Stage stage;
     private Viewport gameport;
 
+    private Sound music;
+
     private Label winGameLabel;
     private Label playAgain;
     private Label exitLabel;
@@ -34,6 +37,9 @@ public class WinScreen implements Disposable, Screen {
 
     public WinScreen(SpriteBatch batch, LonelyHuman game) {
         this.game = game;
+
+        GameOverScreen.sound.stop();
+        music = LonelyHuman.manager.get("ogg/sounds/win_sound.ogg", Sound.class);
 
         gameport = new FitViewport(LonelyHuman.V_WIDTH, LonelyHuman.V_HEIGHT);
         stage = new Stage(gameport, batch);
@@ -64,6 +70,7 @@ public class WinScreen implements Disposable, Screen {
         table.add(exitLabel).expandX().align(Align.center).padTop(10);
 
         stage.addActor(table);
+        music.play(.1f);
 
     }
 
@@ -127,6 +134,7 @@ public class WinScreen implements Disposable, Screen {
 
     @Override
     public void dispose() {
+        music.dispose();
         stage.dispose();
     }
 }

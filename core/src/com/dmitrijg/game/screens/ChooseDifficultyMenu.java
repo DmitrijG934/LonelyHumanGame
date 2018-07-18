@@ -106,7 +106,7 @@ public class ChooseDifficultyMenu implements Screen {
         stage.addActor(tableCenter);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("menu_map.tmx");
+        map = mapLoader.load("maps/menu_map.tmx");
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
         menuCam.position.set(new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2), 0);
@@ -174,6 +174,7 @@ public class ChooseDifficultyMenu implements Screen {
            } else if (activeLabel.equals("insane")) {
                Hud.setPreviousTime(10);
            }
+           MenuScreen.music.stop();
            game.setScreen(new PlayScreen(game));
        }
 

@@ -3,6 +3,7 @@ package com.dmitrijg.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,10 +33,14 @@ public class GameOverScreen implements Disposable, Screen {
     private Label.LabelStyle activeStyle;
     private Label.LabelStyle inactiveStyle;
 
+    public static Sound sound;
+
     private String status = "retry";
 
     public GameOverScreen(SpriteBatch batch, LonelyHuman game) {
         this.game = game;
+
+        sound = LonelyHuman.manager.get("ogg/sounds/game_over.ogg", Sound.class);
 
         if(PlayScreen.music != null) PlayScreen.music.stop();
 
@@ -69,6 +74,7 @@ public class GameOverScreen implements Disposable, Screen {
         table.add(exitLabel).expandX().align(Align.center).padTop(10);
 
         stage.addActor(table);
+        sound.play(.1f);
 
     }
 
@@ -133,5 +139,6 @@ public class GameOverScreen implements Disposable, Screen {
     public void dispose() {
         System.out.println("game over disposed");
         stage.dispose();
+        sound.dispose();
     }
 }

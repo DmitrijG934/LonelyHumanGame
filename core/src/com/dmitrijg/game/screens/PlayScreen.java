@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
     static {
         // set tiled map
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("level.tmx");
+        map = mapLoader.load("maps/level.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1f/ PPM);
 
     }
@@ -98,6 +98,7 @@ public class PlayScreen implements Screen {
 
         music = manager.get("ogg/music/game_theme.ogg", Music.class);
         music.setLooping(true);
+        music.setVolume(.1f);
         music.play();
 
     }
@@ -158,7 +159,7 @@ public class PlayScreen implements Screen {
         tiledMapRenderer.render(backgroundLayers);
 
         // render box2d world
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();

@@ -3,6 +3,8 @@ package com.dmitrijg.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -38,6 +40,8 @@ public class MenuScreen implements Screen {
     private TmxMapLoader mapLoader;
 
     private OrthographicCamera menuCam;
+
+    public static Music music;
 
 
     private LonelyHuman game;
@@ -92,7 +96,7 @@ public class MenuScreen implements Screen {
 
         stage.addActor(tableCenter);
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("menu_map.tmx");
+        map = mapLoader.load("maps/menu_map.tmx");
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
         menuCam.position.set(new Vector2(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2), 0);
@@ -103,6 +107,11 @@ public class MenuScreen implements Screen {
         int tilePixelHeight = prop.get("tileheight", Integer.class);
 
         mapPixelHeight = mapHeight * tilePixelHeight;
+
+        music = LonelyHuman.manager.get("ogg/music/menu_music.ogg", Music.class);
+        music.setVolume(.1f);
+        music.play();
+
 
     }
 
@@ -187,5 +196,6 @@ public class MenuScreen implements Screen {
         mapRenderer.dispose();
         stage.dispose();
         camStage.dispose();
+        music.dispose();
     }
 }

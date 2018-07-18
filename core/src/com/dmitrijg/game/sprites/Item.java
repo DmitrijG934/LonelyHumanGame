@@ -24,14 +24,13 @@ public class Item extends InteractiveObject {
         getCell().setTile(tileSet.getTile(ID));
 
         sound = LonelyHuman.manager.get("ogg/sounds/get_item.ogg");
-
     }
 
     @Override
     public void onCollision() {
         setCategoryFilter(LonelyHuman.DISAPPEAR_ITEM_BIT);
         Hud.scoreCount++;
-        sound.play();
+        sound.play(.1f);
         Hud.amountItems--;
         removeCell();
     }

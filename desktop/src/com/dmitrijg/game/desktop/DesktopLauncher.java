@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		System.setProperty("user.name", "user");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new LonelyHuman(), config);
-		config.addIcon("icon.png", Files.FileType.Local);
+		config.addIcon("icons/icon.png", Files.FileType.Local);
 		config.title = "Survivor";
 		config.width = 1280;
 		config.height = 768;

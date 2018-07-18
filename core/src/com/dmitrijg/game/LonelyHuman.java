@@ -25,13 +25,17 @@ public class LonelyHuman extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MenuScreen(this));
 		manager = new AssetManager();
 
 		// load resources
 		manager.load("ogg/music/game_theme.ogg", Music.class);
 		manager.load("ogg/sounds/get_item.ogg", Sound.class);
+		manager.load("ogg/sounds/win_sound.ogg", Sound.class);
+		manager.load("ogg/sounds/game_over.ogg", Sound.class);
+		manager.load("ogg/music/menu_music.ogg", Music.class);
 		manager.finishLoading();
+
+		setScreen(new MenuScreen(this));
 	}
 
 	public void render() {
